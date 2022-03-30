@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import org.d3if2014.assessment1.databinding.ActivityMainBinding
+import org.d3if2014.assessment1.MainAdapter
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var listRiwayat = ArrayList<Riwayat>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +22,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnHitung.setOnClickListener { hitung() }
+        with(binding.recyclerView) {
+            adapter = MainAdapter(listRiwayat)
+            setHasFixedSize(true)
+        }
     }
 
     private fun hitung() {
@@ -38,6 +47,13 @@ class MainActivity : AppCompatActivity() {
             "*" -> angka1.toDouble() * angka2.toDouble()
             "/" -> if (angka2.toDouble() == 0.0) 0.0 else angka1.toDouble() / angka2.toDouble()
             else -> 0
+        }
+
+        listRiwayat.add(Riwayat(angka1, angka2, operator, hasil.toString()))
+
+        with(binding.recyclerView) {
+            adapter = MainAdapter(listRiwayat)
+            setHasFixedSize(true)
         }
 
         binding.tvHasil.text = getString(R.string.hasil, hasil.toDouble())

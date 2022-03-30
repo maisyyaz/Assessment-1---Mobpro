@@ -9,4 +9,5 @@
     <string name="hitung">Hitung</string>
     <string name="riwayat">Riwayat</string>
     <string name="hasil">= %1$.2f</string>
+    <string name="sama_dengan">=</string>
 </resources>
